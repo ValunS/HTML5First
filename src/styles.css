@@ -1,0 +1,15 @@
+body {
+  background-color: pink;
+  padding: 0;
+  margin: 0;
+}
+
+canvas {
+  margin: 3%;
+  padding: 0;
+  border: #fff ridge 10px;
+  height1: 75%;
+  width1: 75%;
+  height: 350px;
+  width: 350px;
+}
