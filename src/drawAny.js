@@ -5,8 +5,6 @@ import { TestEntity } from "./entities.js";
 
 import { rx, ry, rw, rh, rstep } from "./keysChecker.js";
 
-ctx.fillStyle = "#055550";
-// let pic = new tmpPic("./files/pic/avatar_woman.jpg", 1, 1, 1, 1);
 var pic = new Image();
 pic.src =  "./files/pic/avatar_woman.jpg";
 pic.onload = function() { 
