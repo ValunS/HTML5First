@@ -1,16 +1,17 @@
 import { canvas, ctx } from "./canvasBasics.js";
 import { drawRect } from "./drawAny.js";
-import { TestEntity } from "./entities.js";
+import { Background, TestEntity } from "./entities.js";
 
 //timed $
 
 export var rx = 0,
   ry = 0,
-  rw = 35,
+  rw = 50,
   rh = 50,
   rstep = 2;
 //
-var a = new TestEntity("./files/pic/avatar_woman.jpg", 0, 0, 512, 512, 35, 50);
+var b = new Background("./files/pic/avatar_woman.jpg", 256, 256);
+var a = new TestEntity("./files/pic/avatar_woman.jpg", 0, 0, 512, 512, 100, 100, b);
 
 function checkKeys(pressedKeys) {
   var countPressedKeys = Object.keys(pressedKeys).length;
@@ -31,11 +32,10 @@ function checkKeys(pressedKeys) {
 
 function checkKeysOneTap(pressedKeys) {
   if (pressedKeys["KeyW"]) {
-    console.log(a);
-    a.drawPic(a.pos.X, a.pos.Y >= 0 ? (a.pos.Y -= rstep) : a.pos.Y);
+    a.drawPic(a.pos.X, a.pos.Y-rstep >= 0 ? (a.pos.Y -= rstep) : a.pos.Y=0);
   }
   if (pressedKeys["KeyA"]) {
-    a.drawPic(a.pos.X >= 0 ? (a.pos.X -= rstep) : a.pos.X, a.pos.Y);
+    a.drawPic(a.pos.X-rstep >= 0 ? (a.pos.X -= rstep) : a.pos.X, a.pos.Y);
   }
   if (pressedKeys["KeyS"]) {
     a.drawPic(a.pos.X, a.pos.Y <= canvas.height - a.DrawH - rstep ? (a.pos.Y += rstep) : a.pos.Y);

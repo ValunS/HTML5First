@@ -2,7 +2,7 @@ import { drawRect } from "./drawAny.js";
 import { ctx } from "./canvasBasics.js";
 
 class TestEntity {
-  constructor(src, picX, picY, picW, picH, DrawW, DrawH) {
+  constructor(src, picX, picY, picW, picH, DrawW, DrawH, backg) {
     this.pic = new Image();
     this.pic.src = src;
     this.X = picX;
@@ -11,11 +11,22 @@ class TestEntity {
     this.H = picH;
     this.DrawW = DrawW; //Drawing to canvas
     this.DrawH = DrawH;
+    this.backg = backg;
     //
     this.speed = 2;
-    this.countSprites;
-    this.countSpritesInLine;
-    this.stepBetweenSprites;
+    this.spritesspeed = 1;
+    //
+    this.spriteNum = 1;
+    this.spriteCol = 1;
+    this.spriteLine = 1;
+    //
+    this.sprite = {
+      X: 0,
+      Y: 0,
+    };
+    this.countSprites = 4;
+    this.countSpritesInLine = 2;
+    this.stepBetweenSprites = 256;
     //
     this.pos = {
       X: 0,
@@ -25,24 +36,56 @@ class TestEntity {
     };
   }
   drawPic(X, Y) {
-    // prettier-ignore
-    // ctx.drawImage(this.pic,
-    //   this.X, this.Y, this.W, this.H,
-    //   this.pos.pastX, this.pos.pastY, this.DrawW, this.DrawH
+    //prettier-ignore
+    // ctx.drawImage(this.backg.backg,
+    //   this.pos.pastX*2,this.pos.pastY*2,this.DrawW*2,this.DrawH*2,//remove *2
+    //   this.pos.pastX, this.pos.pastY,this.DrawW,this.DrawH
     // );
     this.pos.pastX = this.pos.X;
     this.pos.pastY = this.pos.Y;
     // prettier-ignore
     ctx.drawImage(this.pic,
-      this.X, this.Y, this.W, this.H,
-      this.pos.X, this.pos.Y, this.DrawW, this.DrawH);
-  }
+      this.sprite.X, this.sprite.Y, this.DrawW, this.DrawH,
+      this.pos.X, this.pos.Y, this.DrawW, this.DrawH
+    );
+    console.log(this.sprite.X, this.sprite.Y, this.spriteCol, this.spriteLine, this.spriteNum)
+
+    if (this.spriteNum == this.countSprites) {//ready next sprite
+        this.spriteNum = 1;
+        this.spriteLine = 1;
+        this.spriteCol = 1;
+        this.sprite.X = 0;
+        this.sprite.Y = 0;
+    } else {
+      this.spriteCol = (this.spriteNum % this.countSpritesInLine) + 1;
+      this.spriteLine = Math.ceil(
+        ((this.spriteNum + 1) * this.countSpritesInLine) / this.countSprites
+      );
+      this.sprite.X = (this.spriteCol - 1) * this.DrawW;
+      this.sprite.Y = (this.spriteLine - 1) * this.DrawH;
+      this.spriteNum++;
+    } //checkSprites
+  } //drawPic()
 }
 
 class Background {
+  constructor(src, DrawW, DrawH) {
+    this.backg = new Image();
+    this.backg.src = src;
+    this.backglist = [];
+    this.X = 0;
+    this.Y = 0;
+    this.W = this.backg.width; //cutting from original backg
+    this.H = this.backg.height;
+    this.DrawW = DrawW; //Drawing to canvas
+    this.DrawH = DrawH;
+    //
+    this.pos = {
+      X: 0,
+      Y: 0,
+      pastX: 0,
+      pastY: 0,
+    };
+  }
 }
-
-let a = new TestEntity("./files/pic/avatar_woman.jpg", 1, 1, 1, 1);
-// a.drawPic();
-
 export { TestEntity, Background };

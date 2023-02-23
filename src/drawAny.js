@@ -15,7 +15,7 @@ var lastx = 0,
 
 function drawRect(x, y, pic) {
   ctx.fillStyle = "black";
-  console.log(pic)
+  // console.log(pic)
   // ctx.drawImage(pic, lastx, lasty, rw, rh, lastx, lastx, rw, rh);
   lastx = x;
   lasty = y;
