@@ -11,7 +11,8 @@ export var rx = 0,
   rstep = 2;
 //
 var b = new Background("./files/pic/avatar_woman.jpg", 256, 256);
-var a = new TestEntity("./files/pic/avatar_woman.jpg", 0, 0, 512, 512, 100, 100, b);
+// var a = new TestEntity("./files/pic/avatar_woman.jpg", 100, 100, 100, 100, b);
+var a = new TestEntity("./files/pic/HumanSprite.png", 100, 100, 100, 100, b);
 
 function checkKeys(pressedKeys) {
   var countPressedKeys = Object.keys(pressedKeys).length;
@@ -32,16 +33,29 @@ function checkKeys(pressedKeys) {
 
 function checkKeysOneTap(pressedKeys) {
   if (pressedKeys["KeyW"]) {
-    a.drawPic(a.pos.X, a.pos.Y-rstep >= 0 ? (a.pos.Y -= rstep) : a.pos.Y=0);
+    a.drawPic(
+      a.pos.X,
+      a.pos.Y - a.speed >= 0 ? (a.pos.Y -= a.speed) : (a.pos.Y = 0)
+    );
   }
   if (pressedKeys["KeyA"]) {
-    a.drawPic(a.pos.X-rstep >= 0 ? (a.pos.X -= rstep) : a.pos.X, a.pos.Y);
+    a.drawPic(a.pos.X - a.speed >= 0 ? (a.pos.X -= a.speed) : a.pos.X, a.pos.Y);
   }
   if (pressedKeys["KeyS"]) {
-    a.drawPic(a.pos.X, a.pos.Y <= canvas.height - a.DrawH - rstep ? (a.pos.Y += rstep) : a.pos.Y);
+    a.drawPic(
+      a.pos.X,
+      a.pos.Y <= canvas.height - a.DrawH - a.speed
+        ? (a.pos.Y += a.speed)
+        : a.pos.Y
+    );
   }
   if (pressedKeys["KeyD"]) {
-    a.drawPic(a.pos.X <= canvas.width - a.DrawW - rstep ? (a.pos.X += rstep) : a.pos.X, a.pos.Y);
+    a.drawPic(
+      a.pos.X <= canvas.width - a.DrawW - a.speed
+        ? (a.pos.X += a.speed)
+        : a.pos.X,
+      a.pos.Y
+    );
   }
 }
 

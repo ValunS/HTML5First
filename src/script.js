@@ -17,4 +17,4 @@ setInterval(() => {
   requestAnimationFrame(() => {
     checkKeys(pressedKeys);
   });
-}, 1000 / 5);
+}, 1000 / 60);
